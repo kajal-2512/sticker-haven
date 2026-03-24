@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticker Haven - Premium Stickers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 0 80px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .stickers-grid {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #333;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .sticker-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .sticker-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .sticker-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .sticker-card:hover .sticker-image {
+            transform: scale(1.05);
+        }
+
+        .sticker-info {
+            padding: 1.5rem;
+        }
+
+        .sticker-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .sticker-price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+        }
+
+        .features {
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            background: #4ecdc4;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: right 0.4s;
+            z-index: 2000;
+        }
+
+        .cart-notification.show {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">🦄 Sticker Haven</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#stickers">Stickers</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#">Cart (0)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Sticker Paradise</h1>
+            <p>Discover the ultimate collection of premium vinyl stickers for your laptops, water bottles, and more!</p>
+            <a href="#stickers" class="cta-button">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="stickers" class="stickers-grid">
+        <div class="container">
+            <h2 class="section-title">Featured Stickers</h2>
+            <div class="grid">
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1571863532582-1961b507ac5f?w=400&h=250&fit=crop" alt="Cute Cat Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Sleepy Cat</h3>
+                        <div class="sticker-price">$3.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Sleepy Cat', 3.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=250&fit=crop" alt="Rocket Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Space Rocket</h3>
+                        <div class="sticker-price">$4.49</div>
+                        <button class="add-to-cart" onclick="addToCart('Space Rocket', 4.49)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop" alt="Sunset Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Mountain Sunset</h3>
+                        <div class="sticker-price">$3.29</div>
+                        <button class="add-to-cart" onclick="addToCart('Mountain Sunset', 3.29)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1544965888-7bddd7c9a5f2?w=400&h=250&fit=crop" alt="Pineapple Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Pineapple Party</h3>
+                        <div class="sticker-price">$2.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Pineapple Party', 2.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e4?w=400&h=250&fit=crop" alt="Robot Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Retro Robot</h3>
+                        <div class="sticker-price">$4.99</div>
+                        <button class="add-to-cart" onclick="addToCart('Retro Robot', 4.99)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="sticker-card">
+                    <img src="https://images.unsplash.com/photo-1541781774459-86b9fa7be73d?w=400&h=250&fit=crop" alt="Ice Cream Sticker" class="sticker-image">
+                    <div class="sticker-info">
+                        <h3 class="sticker-name">Ice Cream Dream</h3>
+                        <div class="sticker-price">$3.79</div>
+                        <button class="add-to-cart" onclick="addToCart('Ice Cream Dream', 3.79)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Stickers?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🏆 Premium Vinyl</h3>
+                    <p>Waterproof, durable, and vibrant colors that last for years!</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Fast Shipping</h3>
+                    <p>Get your stickers in 2-5 business days worldwide.</p>
+                </div>
+                <div class="feature">
+                    <h3>💰 Great Value</h3>
+                    <p>High quality at affordable prices. Buy more, save more!</p>
+                </div>
+                <div class="feature">
+                    <h3>🌍 Eco-Friendly</h3>
+                    <p>Made with sustainable materials and recyclable packaging.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sticker Haven. Made with ❤️ for sticker lovers everywhere.</p>
+        </div>
+    </footer>
+
+    <div id="cartNotification" class="cart-notification">
+        <strong id="cartItemName"></strong> added to cart!
+    </div>
+
+    <script>
+        let cartCount = 0;
+
+        function addToCart(name, price) {
+            cartCount++;
+            document.querySelector('.nav-links a:last-child').textContent = `Cart (${cartCount})`;
+            
+            // Show notification
+            const notification = document.getElementById('cartNotification');
+            document.getElementById('cartItemName').textContent = name;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+  </html>
