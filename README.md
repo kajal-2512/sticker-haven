@@ -1,2 +1,0 @@
-# sticker-haven
-Sticker website
